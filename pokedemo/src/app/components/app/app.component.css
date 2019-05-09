@@ -1,0 +1,14 @@
+.header {
+    min-height: 64px;
+    padding: 12px 20px;
+    background-color: #e4001b;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.title{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 1rem;
+    color: white;
+    font-size: 30px;
+}

@@ -1,0 +1,24 @@
+<div fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <input 
+      fxFlex="80"
+      [(ngModel)]="selected"
+      [typeahead]="search"
+      [typeaheadSingleWords]="typeaheadSingleWords"
+      class="form-control"
+      (keyup)="openDialog($event)">
+    
+  </div>
+  <div class="row card-group">
+      <div class="col-3"  *ngFor="let pokemon of pokemonsToShow">
+          <app-card [data]="pokemon"></app-card>
+      </div>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutAlign="center" style="margin-top: 50px;margin-bottom: 50px;">
+      <button type="button" class="btn btn-outline-dark" (click)="setImageToPokemons()">Show more</button>
+  </div>
+  
+</div>
+

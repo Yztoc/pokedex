@@ -1,0 +1,12 @@
+<div class="card">
+    <app-carousel [data]="data"></app-carousel>
+
+    <div class="container">
+        
+      <h4 class="title"><b>{{ data.name }}</b></h4> 
+      <h6 class="title">Numero :</h6> 
+      <p style="float: right; display: inline-block; white-space: nowrap;clear:right;">
+          <button type="button" class="btn btn-outline-info" (click)="openDialog(data.name)">Details</button>
+      </p>
+    </div>
+</div>
