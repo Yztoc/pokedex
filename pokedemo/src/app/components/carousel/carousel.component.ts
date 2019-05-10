@@ -9,6 +9,7 @@ import { Pokemon } from '../../models/pokemon';
 export class CarouselComponent implements OnInit {
 
   @Input() data: Pokemon;
+  @Input() interval: number;
 
   constructor() { }
 

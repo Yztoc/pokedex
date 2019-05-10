@@ -5,8 +5,25 @@
   </button>
 </div>
 <div class="modal-body">
-    <app-carousel [data]="pokemon"></app-carousel>
-  Height : {{pokemon.height}}
+    <app-carousel [data]="pokemon" [interval]="500" style="background:#CEBEC2!important"></app-carousel>
+    <tabset #staticTabs>
+        <tab heading="Informations">
+            Height : {{pokemon.height}}
+            Weight : {{pokemon.weight}}
+        </tab>
+        <tab heading="Stats">
+            <div style="display: block">
+                <canvas baseChart
+                  [datasets]="radarChartData"
+                  [options]="radarChartOptions"
+                  [labels]="radarChartLabels"
+                  [chartType]="radarChartType">
+                </canvas>
+              </div>
+        </tab>
+        <tab heading="Other">Static content 2</tab>
+    </tabset>
+  
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>

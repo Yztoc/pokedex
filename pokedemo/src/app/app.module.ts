@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
+import { ChartsModule } from 'ng2-charts';
+
 
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -15,6 +17,8 @@ import { HomeComponent } from './components/home/home.component';
 import { CardComponent } from './components/card/card.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { SettingComponent } from './components/setting/setting.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 @NgModule({
@@ -23,7 +27,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     HomeComponent,
     CardComponent,
     DialogComponent,
-    CarouselComponent
+    CarouselComponent,
+    SettingComponent
   ],
   entryComponents:[DialogComponent],
   imports: [
@@ -32,10 +37,12 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
+    ChartsModule,
     ButtonsModule.forRoot(),
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

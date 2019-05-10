@@ -1,12 +1,21 @@
 <div class="card">
-    <app-carousel [data]="data"></app-carousel>
+    <app-carousel [data]="data" [interval]="0" style="background:#CEBEC2!important"></app-carousel>
 
     <div class="container">
         
       <h4 class="title"><b>{{ data.name }}</b></h4> 
       <h6 class="title">Numero :</h6> 
+      <div class="row">
+        <div class="col-8">
+            <div *ngFor="let type of data.types">
+                {{ type.name }}  
+            </div>
+        </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-outline-info" (click)="openDialog(data.name)">Details</button>
+        </div>
+      </div>
       <p style="float: right; display: inline-block; white-space: nowrap;clear:right;">
-          <button type="button" class="btn btn-outline-info" (click)="openDialog(data.name)">Details</button>
       </p>
     </div>
 </div>

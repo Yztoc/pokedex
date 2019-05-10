@@ -4,6 +4,8 @@ import { UtilsService }from '../../services/utils.service'
 import { Pokemon } from '../../models/pokemon';
 import { Sprite } from '../../models/sprite';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
+import { Stat } from '../../models/stat';
+import { Type } from '../../models/type';
 
 interface allPokemons {
   count?: number,
@@ -14,6 +16,8 @@ interface allPokemons {
 
 interface detailPokemon {
   sprites: Sprite,
+  stats: Array<Stat>;
+  types: Array<any>;
   weight: string
 }
 
@@ -43,19 +47,33 @@ export class HomeComponent implements OnInit {
       res.results.forEach((element, index) => {
         if(index < this.limit){
           this._api.getPokemon(element.name).toPromise().then((pokemon :detailPokemon) =>{
+            let stats:Array<Stat> = [];
+            let types:Array<Type> = [];
+
+            pokemon.stats.forEach(stat => {
+              stats.push(stat)
+            });
+            pokemon.types.forEach(type => {
+              types.push(new Type(type.type.name, type.type.url))
+            });
+            
             this.pokemonsToShow.push(new Pokemon(
                                     element.name,
                                     element.url,
                                     new Sprite(pokemon.sprites.front_default,
                                                 pokemon.sprites.back_default,
                                                 pokemon.sprites.front_shiny,
-                                                pokemon.sprites.back_shiny)));
+                                                pokemon.sprites.back_shiny),
+                                    stats,
+                                    types));
           })
         }
         this.pokemons.push(new Pokemon(
           element.name,
           element.url,
-          new Sprite(null,null,null,null)));
+          new Sprite(null,null,null,null),
+          [],
+          []));
         this.search.push(element.name);
       });        
     });
@@ -68,9 +86,11 @@ export class HomeComponent implements OnInit {
   }
 
   setImageToPokemons(){
-    for(var i=this.limit;i<(this.limit+16);i++){
+    for(var i=this.limit;i<(this.limit+32);i++){
       var name = this.pokemons[i].name
       var url = this.pokemons[i].url
+      var stats = this.pokemons[i].stats
+      var types = this.pokemons[i].types
       this._api.getPokemon(name).toPromise().then((pokemon :detailPokemon) =>{
         this.pokemonsToShow.push(new Pokemon(
                                 name,
@@ -78,9 +98,11 @@ export class HomeComponent implements OnInit {
                                 new Sprite(pokemon.sprites.front_default,
                                             pokemon.sprites.back_default,
                                             pokemon.sprites.front_shiny,
-                                            pokemon.sprites.back_shiny)))
+                                            pokemon.sprites.back_shiny),
+                                stats,
+                                types))
       })
     }
-    this.limit += 16;
+    this.limit += 32;
   }
 }

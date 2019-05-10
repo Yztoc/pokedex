@@ -23,6 +23,7 @@ export class UtilsService {
         pokemon: pokemon,
       };
         this.bsModalRef = this.modalService.show(DialogComponent, {initialState});
+        this.bsModalRef.content.pokemom = pokemon;
         this.bsModalRef.content.closeBtnName = 'Close';
     })
   }

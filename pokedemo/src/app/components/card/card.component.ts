@@ -14,6 +14,7 @@ export class CardComponent implements OnInit {
   constructor(private _utils: UtilsService,) { }
 
   ngOnInit() {
+    console.log(this.data);
   }
 
   openDialog(name){
