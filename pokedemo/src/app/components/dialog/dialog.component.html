@@ -8,8 +8,16 @@
     <app-carousel [data]="pokemon" [interval]="500" style="background:#CEBEC2!important"></app-carousel>
     <tabset #staticTabs>
         <tab heading="Informations">
+            <div *ngFor="let type of pokemon.types">
+                <img src="../../../assets/icon_types/{{type.name}}.gif"/>  
+            </div>
             Height : {{pokemon.height}}
             Weight : {{pokemon.weight}}
+            {{ pokemon.abilities.length }}
+            <div *ngFor="let ability of pokemon.abilities">
+              {{ability.name}}
+            </div>
+            
         </tab>
         <tab heading="Stats">
             <div style="display: block">

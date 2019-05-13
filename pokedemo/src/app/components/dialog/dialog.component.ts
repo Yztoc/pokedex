@@ -25,6 +25,7 @@ export class DialogComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef) {}
  
   ngOnInit() {  
+    console.log("POKEMON DIALOG : " + JSON.stringify(this.pokemon))
     var base_stats = [];
     this.pokemon.stats.forEach(element => {
       base_stats.push(element.base_stat)
