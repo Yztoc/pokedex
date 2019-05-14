@@ -13,6 +13,25 @@ export class DialogComponent implements OnInit {
 
   public pokemon: Pokemon;
   closeBtnName: string;
+  curentTypeChart = null;
+  typesChart: Array<Object> = [
+                                {
+                                  name:'Column',
+                                  value: 'bar'
+                                },{
+                                  name: 'Hexagon',
+                                  value: 'radar'
+                                }
+                                ,{
+                                  name: 'Doughnut',
+                                  value: 'doughnut'
+                                }
+                                ,{
+                                  name: 'Polar',
+                                  value: 'polarArea'
+                                }     
+                              ]  
+                               
 
   public radarChartOptions: RadialChartOptions = {
     responsive: true,
@@ -20,12 +39,11 @@ export class DialogComponent implements OnInit {
   public radarChartLabels: Label[] = [];
 
   public radarChartData: ChartDataSets[] = [];
-  public radarChartType: ChartType = 'radar';
+  public radarChartType: ChartType = 'bar';
  
   constructor(public bsModalRef: BsModalRef) {}
  
   ngOnInit() {  
-    console.log("POKEMON DIALOG : " + JSON.stringify(this.pokemon))
     var base_stats = [];
     this.pokemon.stats.forEach(element => {
       base_stats.push(element.base_stat)
@@ -36,13 +54,27 @@ export class DialogComponent implements OnInit {
       label: "Skills",
       borderWidth: 1,
       backgroundColor: [
-        'rgba(206, 190, 194, 0.5)',
+        'rgba(51, 119, 122, 0.5)',
+        'rgba(127, 153, 112, 0.5)',
+        'rgba(255, 219, 135, 0.5)',
+        'rgba(232, 118, 111, 0.5)',
+        'rgba(168, 122, 255, 0.5)',
+        'rgba(168, 216, 255, 0.5)',
     ],
     borderColor: [
-        'rgba(255, 0, 0, 1)',
+      'rgba(51, 119, 122, 0.5)',
+      'rgba(127, 153, 112, 0.5)',
+      'rgba(255, 219, 135, 0.5)',
+      'rgba(232, 118, 111, 0.5)',
+      'rgba(168, 122, 255, 0.5)',
+      'rgba(168, 216, 255, 0.5)',
     ],
     },)
 
+  }
+
+  changeTypeChart(e){
+    this.radarChartType = e.value;
   }
 
   // events

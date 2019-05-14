@@ -36,7 +36,7 @@ export class UtilsService {
     });
 
     return (new Pokemon(
-                        pokemon.name,
+                        pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
                         pokemon.url,
                         new Sprite(pokemon.sprites.front_default,
                                     pokemon.sprites.back_default,
@@ -48,7 +48,7 @@ export class UtilsService {
   }
 
   openDialog(name){
-    this._api.getPokemon(name).toPromise().then((pokemon: Pokemon) =>{
+    this._api.getPokemon(name.toLowerCase()).toPromise().then((pokemon: Pokemon) =>{
       const initialState = {
         pokemon: this.creationPokemon(pokemon),
       };

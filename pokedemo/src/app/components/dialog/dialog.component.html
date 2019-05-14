@@ -20,6 +20,12 @@
             
         </tab>
         <tab heading="Stats">
+            <select class="form-control" style="margin-top:10px" [(ngModel)]="curentTypeChart" (ngModelChange)="changeTypeChart($event)"  >
+                <option disabled [ngValue]="null">Choose a state</option>
+                <option *ngFor="let chart of typesChart" [ngValue]="chart">
+                  {{chart.name}}
+                </option>
+              </select>
             <div style="display: block">
                 <canvas baseChart
                   [datasets]="radarChartData"
