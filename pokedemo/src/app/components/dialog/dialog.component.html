@@ -7,21 +7,44 @@
 <div class="modal-body">
     <app-carousel [data]="pokemon" [interval]="500" style="background:#CEBEC2!important"></app-carousel>
     <tabset #staticTabs>
-        <tab heading="Informations">
-            <div *ngFor="let type of pokemon.types">
-                <img src="../../../assets/icon_types/{{type.name}}.gif"/>  
-            </div>
-            Height : {{pokemon.height}}
-            Weight : {{pokemon.weight}}
-            {{ pokemon.abilities.length }}
-            <div *ngFor="let ability of pokemon.abilities">
-              {{ability.name}}
-            </div>
-            
+        <tab heading="{{ 'data' | translate }}">
+         
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="row">
+                    <div class="col-4">{{ 'type' | translate }} </div>
+                    <div *ngFor="let type of pokemon.types">
+                        <div class="col-4">
+                          <img src="../../../assets/icon_types/{{type.name}}.gif"/>  
+                        </div>
+                    </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-4">{{ 'height' | translate }} </div>
+                  <div class="col-8"> {{pokemon.height}}</div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-4">{{ 'weight' | translate }} </div>
+                  <div class="col-8"> {{pokemon.weight}}</div>
+                </div>
+              </li>
+              <li class="list-group-item" *ngFor="let ability of abilitiesDescription">
+                <div class="row">
+                  <div class="col-4">{{ability.name}}</div>
+                  <div class="col-8">{{ability.description}}</div>
+                </div>
+              </li>
+            </ul>
+
+              
         </tab>
-        <tab heading="Stats">
+        <tab heading="{{ 'statistical' | translate }}">
             <select class="form-control" style="margin-top:10px" [(ngModel)]="curentTypeChart" (ngModelChange)="changeTypeChart($event)"  >
-                <option disabled [ngValue]="null">Choose a state</option>
+                <option disabled [ngValue]="null">{{ 'choose_chart' | translate }} </option>
                 <option *ngFor="let chart of typesChart" [ngValue]="chart">
                   {{chart.name}}
                 </option>
@@ -35,10 +58,10 @@
                 </canvas>
               </div>
         </tab>
-        <tab heading="Other">Static content 2</tab>
+        <tab heading="{{ 'other' | translate }}">blabla</tab>
     </tabset>
   
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
 </div>

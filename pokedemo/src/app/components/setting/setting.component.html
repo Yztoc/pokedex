@@ -1,3 +1,51 @@
-<p>
-  setting works!
-</p>
+<div class="row justify-content-center">
+  <div class="column">
+      <div class="card" style="margin: 15px">
+          <div class="card-header">
+              {{ 'dark_theme' | translate }}
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <p class="card-text">{{ 'text_dark' | translate }}</p>
+              </div>
+              <div class="col-4">
+                <ui-switch  color="#0069d9" (change)="changeTheme($event)" [(ngModel)]="isDarkTheme"></ui-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin: 15px">
+            <div class="card-header">
+              {{ 'change_langue' | translate }}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">{{ 'choose_langue' | translate }}</p>
+              <select class="custom-select custom-select-lg mb-3" (change)="changeLang($event.target.value)" >
+                  <option value="" disabled selected> {{ 'now' | translate }} : {{ currentLang }}</option>
+                  <option *ngFor="let lang of langues" value="{{lang.value}}">{{lang.name}}</option>
+                </select>            
+              </div>
+          </div>
+
+          <div class="card" style="margin: 15px">
+              <div class="card-header">
+                Featured
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <alert *ngIf="isThemeChange" type="success">
+              <div *ngIf="isDarkTheme">{{ 'dark_theme_notif' | translate }}</div>
+              <div *ngIf="!isDarkTheme">{{ 'light_theme_notif' | translate }}</div>
+            </alert>
+            <alert *ngIf="isLangChange" type="success">{{ 'lang_notif' | translate }}</alert>
+
+  </div>
+ 
+</div>

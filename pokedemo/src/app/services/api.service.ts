@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Pokemon } from '../models/pokemon';
 
 const API_URL = environment.apiUrl;
 const httpOptions = {
@@ -21,6 +20,10 @@ export class ApiService {
 
   public getPokemon(id){
     return this.httpClient.get(API_URL + 'pokemon/' + id);
+  }
+
+  public getInfoByRoute(url){
+    return this.httpClient.get(url);
   }
 }
 

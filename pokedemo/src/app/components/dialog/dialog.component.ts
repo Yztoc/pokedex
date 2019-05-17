@@ -3,6 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ChartDataSets, ChartType, RadialChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { Pokemon } from '../../models/pokemon';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-dialog',
@@ -11,16 +12,14 @@ import { Pokemon } from '../../models/pokemon';
 })
 export class DialogComponent implements OnInit {
 
-  public pokemon: Pokemon;
-  closeBtnName: string;
+  pokemon: Pokemon;
+  abilitiesDescription: Array<Object> = [];
   curentTypeChart = null;
+  
   typesChart: Array<Object> = [
                                 {
                                   name:'Column',
                                   value: 'bar'
-                                },{
-                                  name: 'Hexagon',
-                                  value: 'radar'
                                 }
                                 ,{
                                   name: 'Doughnut',
@@ -29,7 +28,15 @@ export class DialogComponent implements OnInit {
                                 ,{
                                   name: 'Polar',
                                   value: 'polarArea'
-                                }     
+                                },
+                                {
+                                  name: 'Hexagon',
+                                  value: 'radar'
+                                },
+                                {
+                                  name: 'Line',
+                                  value: 'line'
+                                }      
                               ]  
                                
 
@@ -41,9 +48,11 @@ export class DialogComponent implements OnInit {
   public radarChartData: ChartDataSets[] = [];
   public radarChartType: ChartType = 'bar';
  
-  constructor(public bsModalRef: BsModalRef) {}
+  constructor(public bsModalRef: BsModalRef,
+              private _api: ApiService) {}
  
   ngOnInit() {  
+    this.getAbility();
     var base_stats = [];
     this.pokemon.stats.forEach(element => {
       base_stats.push(element.base_stat)
@@ -75,6 +84,22 @@ export class DialogComponent implements OnInit {
 
   changeTypeChart(e){
     this.radarChartType = e.value;
+  }
+
+  getAbility(){
+    this.pokemon.abilities.forEach(element => {
+      this._api.getInfoByRoute(element.url).toPromise().then((res: any) =>{
+          for(let ability of res.flavor_text_entries){
+            if(ability.language.name == localStorage.getItem("lang")){ // localstorage save value language
+              this.abilitiesDescription.push({
+                name: element.name.charAt(0).toUpperCase() + element.name.slice(1),
+                description: ability.flavor_text
+              })
+              break;
+            }
+          }
+      });
+    });
   }
 
   // events

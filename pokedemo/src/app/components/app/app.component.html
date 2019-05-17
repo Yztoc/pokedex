@@ -1,7 +1,12 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<header class="header" id="header">
-  <div class="title">Pokedex</div> 
-  <button style="float: right; display: inline-block; white-space: nowrap;clear:right;">Setting</button>
-</header>
+
+<div class="topnav">
+  <a class="active title" routerLink='home' routerLinkActive="active">Pokedex</a>
+  <div class="topnav-right">
+    <a routerLink='settings' routerLinkActive="active"><i style="color:white;" class="material-icons">
+        settings
+      </i>
+    </a>
+  </div>
+</div>
 
 <router-outlet></router-outlet>

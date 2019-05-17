@@ -11,6 +11,8 @@ img{
   transition: 0.3s;
   width: 80%;
   margin: 20px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .card:hover {
@@ -19,4 +21,8 @@ img{
 
 .container {
   padding: 2px 16px;
+}
+
+.carousel{
+  background:var(--caroussel-color);
 }

@@ -4,10 +4,10 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { UtilsService }from '../../services/utils.service'
 import { ApiService }from '../../services/api.service'
 import { Pokemon } from '../../models/pokemon';
-import { Ability } from '../../models/ability';
 import { Sprite } from '../../models/sprite';
-import { Stat } from '../../models/stat';
-import { Type } from '../../models/type';
+
+import { TranslateService } from '../../services/translate/translate.service';
+
 
 interface allPokemons {
   count?: number,
@@ -24,7 +24,7 @@ interface allPokemons {
 export class HomeComponent implements OnInit {
   
   constructor(private _api: ApiService,
-              private _utils: UtilsService,) { }
+              private _utils: UtilsService){}
 
   search= [];
   typeaheadSingleWords = true;
@@ -43,8 +43,6 @@ export class HomeComponent implements OnInit {
   onWindowScroll() {
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight;
-    console.log("TOP  : " + document.documentElement.scrollTop )
-    console.log("OFFSET  : " + document.documentElement.offsetHeight)
     console.log("POSITION : " + pos + " MAX :" + max)
     if(pos == max )   {
       console.log('ici');
@@ -61,6 +59,8 @@ export class HomeComponent implements OnInit {
         }
         this.pokemons.push(new Pokemon(
           element.name,
+          element.weight,
+          element.height,
           element.url,
           new Sprite(null,null,null,null),
           [],
@@ -83,6 +83,8 @@ export class HomeComponent implements OnInit {
     if(!this.isShowMore) this.isShowMore = true;
     for(var i=this.limit;i<(this.limit+32);i++){
       var name = this.pokemons[i].name
+      var weight = this.pokemons[i].weight
+      var height = this.pokemons[i].height
       var url = this.pokemons[i].url
       var stats = this.pokemons[i].stats
       var types = this.pokemons[i].types
@@ -90,6 +92,8 @@ export class HomeComponent implements OnInit {
       this._api.getPokemon(name).toPromise().then((pokemon :any) =>{
         this.pokemonsToShow.push(new Pokemon(
                                 name,
+                                weight,
+                                height,
                                 url,
                                 new Sprite(pokemon.sprites.front_default,
                                             pokemon.sprites.back_default,

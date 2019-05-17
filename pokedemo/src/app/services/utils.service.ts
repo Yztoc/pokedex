@@ -7,6 +7,27 @@ import { Stat } from '../models/stat';
 import { Type } from '../models/type';
 import { Sprite } from '../models/sprite';
 import { Ability } from '../models/ability';
+import { TranslateService } from './translate/translate.service';
+
+export const darkTheme = {
+  'primary-color': '#455363',
+  'background-color': '#1f2935',
+  'caroussel-color': '#455363',
+  'text-color': '#fff',
+  'header-color': '#455363',
+  'header-border': 'solid 1px #1f2935',
+  'header-color-title': '#f1f1f1'
+};
+
+export const lightTheme = {
+  'primary-color': '#fff',
+  'background-color': '#fff',
+  'text-color': 'black',
+  'caroussel-color': '#d3d3d3',
+  'header-color':  '#e4001b',
+  'header-border': 'solid 1px #e4001b',
+  'header-color-title': '#fff'
+};
 
 
 @Injectable({
@@ -18,7 +39,8 @@ export class UtilsService {
 
   constructor(
     private _api: ApiService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private translate: TranslateService
   ) {}
 
   creationPokemon(pokemon: any): Pokemon{
@@ -37,6 +59,8 @@ export class UtilsService {
 
     return (new Pokemon(
                         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
+                        pokemon.weight,
+                        pokemon.height,
                         pokemon.url,
                         new Sprite(pokemon.sprites.front_default,
                                     pokemon.sprites.back_default,
@@ -47,7 +71,7 @@ export class UtilsService {
                         abilities));
   }
 
-  openDialog(name){
+  openDialog(name: String){
     this._api.getPokemon(name.toLowerCase()).toPromise().then((pokemon: Pokemon) =>{
       const initialState = {
         pokemon: this.creationPokemon(pokemon),
@@ -58,4 +82,25 @@ export class UtilsService {
     })
   }
   
+  changeLang(lang: string){
+    this.translate.use(lang);
+    localStorage.setItem('lang',lang);
+  }
+
+  setThemeDark() {
+    if(!(localStorage.getItem('theme') == "dark")) localStorage.setItem('theme','dark')
+    this.setTheme(darkTheme);
+  }
+
+  setThemeLight() {
+    if(!(localStorage.getItem('theme') == "light")) localStorage.setItem('theme','light')
+    this.setTheme(lightTheme);
+  }
+
+  private setTheme(theme: {}) {
+    Object.keys(theme).forEach(k =>
+      document.documentElement.style.setProperty(`--${k}`, theme[k])
+    );
+  }
+
 }

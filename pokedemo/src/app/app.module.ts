@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -19,8 +20,18 @@ import { CardComponent } from './components/card/card.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
+
+import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
+import { TranslateService } from './services/translate/translate.service';
+import { TranslatePipe } from './services/translate/translate.pipe';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
+export function setupTranslateFactory(
+  service: TranslateService): Function {
+  return () => service.use('en');
+}
 
 @NgModule({
   declarations: [
@@ -30,7 +41,9 @@ import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
     DialogComponent,
     CarouselComponent,
     SettingComponent,
-    FilterPokemonPipePipe
+    FilterPokemonPipePipe,
+    NotFoundComponent,
+    TranslatePipe
   ],
   entryComponents:[DialogComponent],
   imports: [
@@ -40,13 +53,23 @@ import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
     HttpClientModule,
     FlexLayoutModule,
     ChartsModule,
+    UiSwitchModule,
     ButtonsModule.forRoot(),
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    AlertModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    TranslateService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setupTranslateFactory,
+      deps: [ TranslateService ],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
