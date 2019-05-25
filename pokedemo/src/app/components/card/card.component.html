@@ -1,0 +1,24 @@
+<div class="card">
+
+    <app-carousel [data]="data" [interval]="0" class="carousel"></app-carousel>
+
+    <div class="container">
+        
+      <h4 class="title"><b>{{ data.name }}</b></h4> 
+      <h6 class="title">{{ 'number' | translate }} :</h6> 
+      <div class="row">
+
+        <div class="col-8">
+            <div *ngFor="let type of data.types">
+                <img src="../../../assets/icon_types/{{type.name}}.gif"/>  
+            </div>
+        </div>
+        <div class="col-4">
+            <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="openDialog(data.name)">{{ 'details' | translate }}</button>
+            <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="openDialog(data.name)">{{ 'details' | translate }}</button>
+        </div>
+      </div>
+      <p style="float: right; display: inline-block; white-space: nowrap;clear:right;">
+      </p>
+    </div>
+</div>
