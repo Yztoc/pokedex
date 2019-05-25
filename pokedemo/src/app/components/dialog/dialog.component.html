@@ -9,8 +9,9 @@
     <tabset #staticTabs>
         <tab heading="{{ 'data' | translate }}">
          
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <h4>Description</h4 >          
                 <div class="row">
                     <div class="col-4">{{ 'type' | translate }} </div>
                     <div *ngFor="let type of pokemon.types">
@@ -32,7 +33,10 @@
                   <div class="col-8"> {{pokemon.weight}}</div>
                 </div>
               </li>
-              <li class="list-group-item" *ngFor="let ability of abilitiesDescription">
+            </ul>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let ability of abilitiesDescription; index as i">
+                <h4 *ngIf="i == 0">Abilities</h4 >
                 <div class="row">
                   <div class="col-4">{{ability.name}}</div>
                   <div class="col-8">{{ability.description}}</div>
@@ -58,10 +62,22 @@
                 </canvas>
               </div>
         </tab>
+        <tab heading="{{ 'moves' | translate }}">
+            <ul class="list-group list-group-flush list-overflow">
+                <li class="list-group-item" *ngFor="let move of movesDescription">
+                  <div class="row">
+                    <div class="col-4">{{move.name}}</div>
+                    <div class="col-8">{{move.description}}</div>
+                  </div>
+                </li>
+              </ul>
+        
+        </tab>
         <tab heading="{{ 'other' | translate }}">blabla</tab>
     </tabset>
   
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
+  <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
+  <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
 </div>

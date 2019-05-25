@@ -1,18 +1,23 @@
 <div class="column">
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center" style="margin:0px!important">
     <div class="col-lg-3 col-md-6 col-sm-12">
+      <ngx-spinner name="sp1" [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
       <input placeholder="{{ 'search' | translate }}" [(ngModel)]="selected" [typeahead]="search"
         [typeaheadSingleWords]="typeaheadSingleWords" class="form-control" (keyup)="openDialog($event)">
     </div>
   </div>
-  <div class="row card-group">
+  <div class="row card-group"  style="margin:0px!important">
     <!--<div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let pokemon of (pokemonsToShow | filterPokemonPipe: selected)"-->
     <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let pokemon of pokemonsToShow">
-      <app-card [data]="pokemon"></app-card>
+        <app-card [data]="pokemon"></app-card>
     </div>
   </div>
 
   <div *ngIf="!isShowMore" fxLayout="row" fxLayoutAlign="center" style="margin-top: 50px;margin-bottom: 50px;">
     <button type="button" class="btn btn-outline-dark" (click)="setImageToPokemons()">{{ 'show_more' | translate }}</button>
+  </div>
+
+  <div (click)="openDialogAdd()" class="float">
+    <i class="my-float material-icons">add</i>
   </div>
 </div>

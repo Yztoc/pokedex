@@ -7,6 +7,7 @@ import { Pokemon } from '../../models/pokemon';
 import { Sprite } from '../../models/sprite';
 
 import { TranslateService } from '../../services/translate/translate.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 interface allPokemons {
@@ -24,7 +25,8 @@ interface allPokemons {
 export class HomeComponent implements OnInit {
   
   constructor(private _api: ApiService,
-              private _utils: UtilsService){}
+              private _utils: UtilsService,
+              private spinner: NgxSpinnerService){}
 
   search= [];
   typeaheadSingleWords = true;
@@ -35,17 +37,16 @@ export class HomeComponent implements OnInit {
   pokemonsToShow: Array<Pokemon> = [];
 
   ngOnInit() {
+    this.spinner.hide("sp1");
+    this.spinner.show("sp1");
     this.getFirstPokemons();
   }
 
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    console.log("POSITION : " + pos + " MAX :" + max)
-    if(pos == max )   {
-      console.log('ici');
+    if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && this.isShowMore == true) {
+      this.setImageToPokemons();
     }
   }
 
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit {
           new Sprite(null,null,null,null),
           [],
           [],
+          [],
           []));
         this.search.push(element.name);
       });        
@@ -77,33 +79,18 @@ export class HomeComponent implements OnInit {
     }
   }
 
- 
-    
+
+  openDialogAdd(){
+    this._utils.openDialogAdd();
+  }
+
   setImageToPokemons(){
     if(!this.isShowMore) this.isShowMore = true;
-    for(var i=this.limit;i<(this.limit+32);i++){
-      var name = this.pokemons[i].name
-      var weight = this.pokemons[i].weight
-      var height = this.pokemons[i].height
-      var url = this.pokemons[i].url
-      var stats = this.pokemons[i].stats
-      var types = this.pokemons[i].types
-      var abilities = this.pokemons[i].abilities
-      this._api.getPokemon(name).toPromise().then((pokemon :any) =>{
-        this.pokemonsToShow.push(new Pokemon(
-                                name,
-                                weight,
-                                height,
-                                url,
-                                new Sprite(pokemon.sprites.front_default,
-                                            pokemon.sprites.back_default,
-                                            pokemon.sprites.front_shiny,
-                                            pokemon.sprites.back_shiny),
-                                stats,
-                                types,
-                                abilities));
-      });
+    for(var i=this.limit;i<(this.limit+8);i++){
+      this._api.getPokemon(this.pokemons[i].name).toPromise().then((pokemon :any) =>{
+        this.pokemonsToShow.push(this._utils.creationPokemon(pokemon));
+      })
     }
-    this.limit += 32;
+    this.limit += 8;
   }
 }

@@ -14,7 +14,9 @@ export class DialogComponent implements OnInit {
 
   pokemon: Pokemon;
   abilitiesDescription: Array<Object> = [];
+  movesDescription: Array<Object> = [];
   curentTypeChart = null;
+  isDarkTheme: boolean = false;
   
   typesChart: Array<Object> = [
                                 {
@@ -53,7 +55,9 @@ export class DialogComponent implements OnInit {
  
   ngOnInit() {  
     this.getAbility();
+    this.getMoves();
     var base_stats = [];
+    this.isDarkTheme = (localStorage.getItem('theme') == "dark") ? true : false;
     this.pokemon.stats.forEach(element => {
       base_stats.push(element.base_stat)
       this.radarChartLabels.push(element.stat.name);
@@ -94,6 +98,22 @@ export class DialogComponent implements OnInit {
               this.abilitiesDescription.push({
                 name: element.name.charAt(0).toUpperCase() + element.name.slice(1),
                 description: ability.flavor_text
+              })
+              break;
+            }
+          }
+      });
+    });
+  }
+
+  getMoves(){
+    this.pokemon.moves.forEach(element => {
+      this._api.getInfoByRoute(element.url).toPromise().then((res: any) =>{
+        for(let move of res.flavor_text_entries){
+          if(move.language.name == localStorage.getItem("lang")){ 
+              this.movesDescription.push({
+                name: element.name.charAt(0).toUpperCase() + element.name.slice(1),
+                description: move.flavor_text
               })
               break;
             }

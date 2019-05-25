@@ -24,7 +24,7 @@ export class SettingComponent implements OnInit {
   currentLang: String = "Anglais";
 
   ngOnInit() {
-    this.isDarkTheme = (localStorage.getItem('theme') == "dark") ? true : false;
+    this.isDarkTheme = this._utils.isDarkTheme();
     this.langues.forEach(element => {
       if((localStorage.getItem('lang') == element.value)) this.currentLang = element.name;      
     });

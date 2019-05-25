@@ -21,17 +21,24 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DialogAddComponent } from './components/dialog-add/dialog-add.component';
 
 
 import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
 import { TranslateService } from './services/translate/translate.service';
 import { TranslatePipe } from './services/translate/translate.pipe';
+
+
+import { NgSelectModule } from '@ng-select/ng-select';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('en');
 }
+
 
 @NgModule({
   declarations: [
@@ -43,9 +50,10 @@ export function setupTranslateFactory(
     SettingComponent,
     FilterPokemonPipePipe,
     NotFoundComponent,
-    TranslatePipe
+    TranslatePipe,
+    DialogAddComponent
   ],
-  entryComponents:[DialogComponent],
+  entryComponents:[DialogComponent,DialogAddComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -54,6 +62,8 @@ export function setupTranslateFactory(
     FlexLayoutModule,
     ChartsModule,
     UiSwitchModule,
+    NgSelectModule,
+    NgxSpinnerModule,
     ButtonsModule.forRoot(),
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),

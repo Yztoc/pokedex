@@ -1,4 +1,9 @@
 
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
     min-height: 64px;
