@@ -4,49 +4,72 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <form>
+<form [formGroup]="addGroup" (validSubmit)="onSubmit()">
+  <div class="modal-body">
     <!-- FIRST -->
-
     <div class="form-group row">
       <div class="col-sm-12">
         <h5>Information Générale</h5>
       </div>
     </div>
     <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Nom</label>
+      <label for="name" class="col-sm-2 col-form-label">Nom</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputEmail3" placeholder="Nom">
+        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nom">
+        <bfv-messages></bfv-messages>
       </div>
     </div>
     <div class="form-group row">
-      <label for="inputPassword3" class="col-sm-2 col-form-label">Numéro</label>
+      <label for="id" class="col-sm-2 col-form-label">Numéro</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputPassword3" placeholder="Numéro">
+        <input type="number" class="form-control" id="id" formControlName="id" placeholder="Numéro">
+        <bfv-messages></bfv-messages>
       </div>
     </div>
+    
     <div class="form-group row">
-      <label for="inputPassword3" class="col-sm-2 col-form-label">Taille</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="height" placeholder="Taille">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Types</label>
+        <div class="col-sm-10">
+            <ng-select [items]="types"
+                     bindLabel="name"
+                     [multiple]="true"
+                     [loading]="loading"
+                     placeholder="Select Types"
+                     formControlName="type"
+                     >
+          </ng-select>
+          <bfv-messages></bfv-messages>
+        </div>
       </div>
-      <label for="inputPassword3" class="col-sm-2 col-form-label">Poids</label>
-      <div class="col-sm-4">
-        <input type="text" class="form-control" id="weight" placeholder="Poids">
-      </div>
-    </div>
+
     <div class="form-group row">
       <label for="inputPassword3" class="col-sm-2 col-form-label">Ability</label>
       <div class="col-sm-10">
-         <!-- <ng-select [items]="cities2"
+          <ng-select [items]="abilities"
                    bindLabel="name"
-                   bindValue="id"
                    [multiple]="true"
-                   placeholder="Select cities"
-                   [(ngModel)]="selectedCityIds">
-        </ng-select>-->
+                   [loading]="loading"
+                   placeholder="Select abilities"
+                   formControlName="ability"
+                   >
+        </ng-select>
+        <bfv-messages></bfv-messages>
       </div>
     </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="height">Taille</label>
+          <input type="number" class="form-control" id="height" formControlName="height" placeholder="Taille">
+          <bfv-messages></bfv-messages>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="weight">Poids</label>
+            <input type="number" class="form-control" id="weight" formControlName="weight" placeholder="Poids">
+            <bfv-messages></bfv-messages>
+        </div>
+    </div>
+
 
     <div class="dropdown-divider"></div>
 
@@ -57,46 +80,73 @@
             <h5>Statistiques</h5>
           </div>
       </div>
-  
-      <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Hp</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" id="height" placeholder="Taille">
-          </div>
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Special Attack</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" id="weight" placeholder="Poids">
-          </div>
-        </div>
-     
-      <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Speed</label>
-        <div class="col-sm-4">
-          <input type="number" class="form-control" id="height" placeholder="Taille">
-        </div>
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Special Defense</label>
-        <div class="col-sm-4">
-          <input type="number" class="form-control" id="weight" placeholder="Poids">
-        </div>
-      </div>
 
-      <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Defence</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" id="height" placeholder="Taille">
+      <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="hp">Hp</label>
+            <input type="number" class="form-control" id="hp" formControlName="hp" placeholder="Hp">
+            <bfv-messages></bfv-messages>
           </div>
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Attack</label>
-          <div class="col-sm-4">
-            <input type="number" class="form-control" id="weight" placeholder="Poids">
+          <div class="form-group col-md-6">
+              <label for="speed">Speed</label>
+              <input type="number" class="form-control" id="speed" formControlName="speed" placeholder="Speed">
+              <bfv-messages></bfv-messages>
           </div>
       </div>
 
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="Attack">Attack</label>
+              <input type="number" class="form-control" id="Attack" formControlName="attack" placeholder="Attack">
+              <bfv-messages></bfv-messages>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Defence">Defence</label>
+            <input type="number" class="form-control" id="Defence" formControlName="defence" placeholder="Defence">
+            <bfv-messages></bfv-messages>
+          </div>
+      </div>
 
-  </form>    
-</div>
-<div class="modal-footer">
-  <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
-  <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>   
-  
-  <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-primary" (click)="bsModalRef.hide()">{{ 'validate' | translate }}</button>
-</div>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="speAttack">Special Attack</label>
+              <input type="number" class="form-control" id="speAttack" formControlName="speAttack" placeholder="Special Attack">
+              <bfv-messages></bfv-messages>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="speDefence">Special Defence</label>
+            <input type="number" class="form-control" id="speDefence" formControlName="speDefence" placeholder="Special Defence">
+            <bfv-messages></bfv-messages>
+          </div>
+      </div>
+      
+      <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Moves</label>
+          <div class="col-sm-10">
+              <ng-select [items]="moves"
+                       bindLabel="name"
+                       [multiple]="true"
+                       placeholder="Select Moves"
+                       formControlName="move"
+                       >
+            </ng-select>
+            <bfv-messages></bfv-messages>
+          </div>
+        </div>
+
+      <div class="form-group row">
+        <label for="image" class="col-sm-2 col-form-label">Image</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="image" formControlName="image" placeholder="Url from web">
+          <bfv-messages></bfv-messages>
+        </div>
+      </div>
+
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
+    <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>   
+    
+    <button *ngIf="!isDarkTheme" type="submit" class="btn btn-outline-primary">{{ 'validate' | translate }}</button>
+  </div>
+</form>    

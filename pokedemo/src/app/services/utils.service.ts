@@ -63,30 +63,71 @@ export class UtilsService {
       moves.push(new Ability(move.move.name, move.move.url))
     });
 
+    var sprite;
+    if(localStorage.getItem('quality') == "hight"){
+      var idUrl = ""; 
+      if(pokemon.id < 10){
+        idUrl = "00" + pokemon.id;
+      }else if(pokemon.id >= 10 && pokemon.id < 100){
+        idUrl = "0" + pokemon.id;
+      }else{
+        idUrl = pokemon.id;
+      }
+      sprite = new Sprite(
+       "https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_" + idUrl +"_00.png",
+        null,
+        "https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_" + idUrl +"_00_shiny.png",
+        null
+      )
+    }else{
+      sprite =  new Sprite(pokemon.sprites.front_default,
+        pokemon.sprites.back_default,
+        pokemon.sprites.front_shiny,
+        pokemon.sprites.back_shiny)
+    }
     return (new Pokemon(
+                        pokemon.id,
+                        false,
                         pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
                         pokemon.weight,
                         pokemon.height,
                         pokemon.url,
-                        new Sprite(pokemon.sprites.front_default,
-                                    pokemon.sprites.back_default,
-                                    pokemon.sprites.front_shiny,
-                                    pokemon.sprites.back_shiny),
+                        sprite,
                         stats,
                         types,
                         abilities,
                         moves));
   }
 
-  openDialog(name: String){
-    this._api.getPokemon(name.toLowerCase()).toPromise().then((pokemon: Pokemon) =>{
-      const initialState = {
-        pokemon: this.creationPokemon(pokemon),
-      };
+  openDialog(name: String, local: boolean){
+  
+    if(!local){
+      this._api.getPokemon(name.toLowerCase()).toPromise().then((pokemon: Pokemon) =>{
+       
+        const initialState = {
+          pokemon: this.creationPokemon(pokemon),
+        };
         this.bsModalRef = this.modalService.show(DialogComponent, {initialState});
         this.bsModalRef.content.pokemom = pokemon;
         this.bsModalRef.content.closeBtnName = 'Close';
-    })
+      })
+    }else{
+      let tamp = JSON.parse(localStorage.getItem('localPokemons'));
+      let tampPokemon;
+      if(tamp === null) tamp = [];
+      tamp.forEach(element => {
+        if(element.name == name){
+          console.log("LOCAL "  + JSON.stringify(element))
+          tampPokemon = element;
+        }
+      });
+      const initialState = {
+        pokemon: tampPokemon
+      };
+      this.bsModalRef = this.modalService.show(DialogComponent, {initialState});
+      this.bsModalRef.content.pokemom = tampPokemon;
+      this.bsModalRef.content.closeBtnName = 'Close';
+    }
   }
 
   openDialogAdd(){
@@ -97,6 +138,10 @@ export class UtilsService {
   changeLang(lang: string){
     this.translate.use(lang);
     localStorage.setItem('lang',lang);
+  }
+  
+  setQuality(quality: string){
+    localStorage.setItem('quality',quality)
   }
 
   setThemeDark() {

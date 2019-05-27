@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
   getFirstPokemons(){
     this._api.getAllPokemons(1000).toPromise().then((res: allPokemons) =>{
       res.results.forEach((element, index) => {
@@ -57,8 +58,11 @@ export class HomeComponent implements OnInit {
           this._api.getPokemon(element.name).toPromise().then((pokemon :any) =>{
             this.pokemonsToShow.push(this._utils.creationPokemon(pokemon));
           })
+          
         }
         this.pokemons.push(new Pokemon(
+          0,
+          false,
           element.name,
           element.weight,
           element.height,
@@ -68,20 +72,36 @@ export class HomeComponent implements OnInit {
           [],
           [],
           []));
-        this.search.push(element.name);
-      });        
+          this.search.push((index + 1) + ":" + element.name);
+      }); 
+
     });
+    this.pokemonsToShow.sort((a, b)=>{  
+        let comparison = 0;
+        if (a._id > b._id) {
+          comparison = 1;
+        } else if (a._id < b._id) {
+          comparison = -1;
+        }
+        return comparison;
+      })
   }
 
   openDialog(event){
     if(event.key == "Enter"){
-      this._utils.openDialog(this.selected);
+      var name = "";
+      var ok = false;
+      for(var i = 0;i<this.selected.length;i++){
+        if(this.selected[i] == ':'){
+          ok = true;
+          i++;
+        }
+        if(ok){
+          name  += this.selected[i];
+        }
+      }
+      this._utils.openDialog(name,false);
     }
-  }
-
-
-  openDialogAdd(){
-    this._utils.openDialogAdd();
   }
 
   setImageToPokemons(){
@@ -93,4 +113,5 @@ export class HomeComponent implements OnInit {
     }
     this.limit += 8;
   }
+
 }

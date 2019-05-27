@@ -1,0 +1,14 @@
+<div class="column">
+    <div class="row card-group"  style="margin:0px!important">
+      <div *ngIf="localPokemons.length == 0">
+        <h4>Il n'y a pas encore de pokemons crées</h4>
+      </div> 
+      <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let pokemon of localPokemons">
+          <app-card [data]="pokemon"></app-card>
+      </div>
+    </div>   
+    <div (click)="openDialogAdd()" class="float">
+      <i class="my-float material-icons">add</i>
+    </div>
+  </div>
+  

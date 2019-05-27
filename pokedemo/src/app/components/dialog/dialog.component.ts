@@ -54,8 +54,11 @@ export class DialogComponent implements OnInit {
               private _api: ApiService) {}
  
   ngOnInit() {  
-    this.getAbility();
-    this.getMoves();
+    console.log("DIALOG : " + this.pokemon)
+    if(this.pokemon.local){
+      this.getAbility();
+      this.getMoves();
+    }
     var base_stats = [];
     this.isDarkTheme = (localStorage.getItem('theme') == "dark") ? true : false;
     this.pokemon.stats.forEach(element => {

@@ -30,6 +30,22 @@
               </p>
             </div>
           </div>
+          
+          <div class="card" style="margin: 15px">
+            <div class="card-header">
+              {{ 'change_quality' | translate }}
+            </div>
+            <div class="card-body" >
+              <div class="row">
+                <div class="col-8">
+                  <p class="card-text">{{ 'change_quality_text' | translate }}</p>
+                </div>
+                <div class="col-4">
+                  <ui-switch  color="#0069d9" (change)="changeQuality($event)" [(ngModel)]="isHightQuality"></ui-switch>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="card" style="margin: 15px">
               <div class="card-header">
@@ -58,7 +74,8 @@
             <div *ngIf="!isDarkTheme">{{ 'light_theme_notif' | translate }}</div>
           </alert>
           <alert *ngIf="isLangChange" type="success">{{ 'lang_notif' | translate }}</alert>
-
+          <alert *ngIf="isQualityChange" type="success">{{ 'quality_notif' | translate }}</alert>
+          
   </div>
  
 </div>

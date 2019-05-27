@@ -19,12 +19,16 @@ export class SettingComponent implements OnInit {
     value: "fr"
   }]
   isDarkTheme: boolean = false;
+  isHightQuality: boolean = false;
   isThemeChange: boolean = false;
   isLangChange: boolean = false;  
+  isQualityChange: boolean = false;  
   currentLang: String = "Anglais";
 
   ngOnInit() {
     this.isDarkTheme = this._utils.isDarkTheme();
+    this.isHightQuality = (localStorage.getItem('quality') == "low") ? false : true;      
+
     this.langues.forEach(element => {
       if((localStorage.getItem('lang') == element.value)) this.currentLang = element.name;      
     });
@@ -35,6 +39,14 @@ export class SettingComponent implements OnInit {
     this.isThemeChange = true;
     setTimeout(()=>{    
       this.isThemeChange = false;
+    }, 2000);
+  }
+
+  changeQuality(value){
+    (value) ?  this._utils.setQuality('hight') : this._utils.setQuality('low'); 
+    this.isQualityChange = true;
+    setTimeout(()=>{    
+      this.isQualityChange = false;
     }, 2000);
   }
 

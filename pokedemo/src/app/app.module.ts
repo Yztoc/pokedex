@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { UiSwitchModule } from 'ngx-toggle-switch';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,13 +22,14 @@ import { SettingComponent } from './components/setting/setting.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DialogAddComponent } from './components/dialog-add/dialog-add.component';
+import { CustomHomeComponent } from './components/custom-home/custom-home.component';
 
 
 import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
 import { TranslateService } from './services/translate/translate.service';
 import { TranslatePipe } from './services/translate/translate.pipe';
 
-
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -51,25 +52,28 @@ export function setupTranslateFactory(
     FilterPokemonPipePipe,
     NotFoundComponent,
     TranslatePipe,
-    DialogAddComponent
+    DialogAddComponent,
+    CustomHomeComponent
   ],
   entryComponents:[DialogComponent,DialogAddComponent],
   imports: [
     BrowserModule,
     FormsModule,
+    ChartsModule,
+    NgSelectModule,
+    UiSwitchModule,
+    NgxSpinnerModule,
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
-    ChartsModule,
-    UiSwitchModule,
-    NgSelectModule,
-    NgxSpinnerModule,
-    ButtonsModule.forRoot(),
+    ReactiveFormsModule,
+    NgBootstrapFormValidationModule.forRoot(),
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
+    ButtonsModule.forRoot(),
     ModalModule.forRoot(),
+    AlertModule.forRoot(),
     TabsModule.forRoot(),
-    AlertModule.forRoot()
   ],
   providers: [
     TranslateService,

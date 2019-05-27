@@ -17,8 +17,8 @@ export class CardComponent implements OnInit {
   ngOnInit() {
   }
 
-  openDialog(name){
-    this._utils.openDialog(name);
+  openDialog(name, local){
+    this._utils.openDialog(name,local);
     this.isDarkTheme = this._utils.isDarkTheme();
   }
 }

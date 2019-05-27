@@ -5,7 +5,7 @@
     <div class="container">
         
       <h4 class="title"><b>{{ data.name }}</b></h4> 
-      <h6 class="title">{{ 'number' | translate }} :</h6> 
+      <h6 class="title">{{ 'number' | translate }} : {{data._id}}</h6> 
       <div class="row">
 
         <div class="col-8">
@@ -14,8 +14,8 @@
             </div>
         </div>
         <div class="col-4">
-            <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="openDialog(data.name)">{{ 'details' | translate }}</button>
-            <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="openDialog(data.name)">{{ 'details' | translate }}</button>
+            <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="openDialog(data.name, data.local)">{{ 'details' | translate }}</button>
+            <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="openDialog(data.name, data.local)">{{ 'details' | translate }}</button>
         </div>
       </div>
       <p style="float: right; display: inline-block; white-space: nowrap;clear:right;">
