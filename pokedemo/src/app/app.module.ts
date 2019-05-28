@@ -28,6 +28,7 @@ import { CustomHomeComponent } from './components/custom-home/custom-home.compon
 import { FilterPokemonPipePipe } from './services/filter-pokemon--pipe.pipe';
 import { TranslateService } from './services/translate/translate.service';
 import { TranslatePipe } from './services/translate/translate.pipe';
+import { StorageService } from './services/storage.service';
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -82,7 +83,8 @@ export function setupTranslateFactory(
       useFactory: setupTranslateFactory,
       deps: [ TranslateService ],
       multi: true
-    }
+    },
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

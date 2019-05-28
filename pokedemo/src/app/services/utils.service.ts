@@ -10,6 +10,7 @@ import { Ability } from '../models/ability';
 import { TranslateService } from './translate/translate.service';
 import { DialogAddComponent } from '../components/dialog-add/dialog-add.component';
 import { Move } from '../models/move';
+import { StorageService } from './storage.service';
 
 export const darkTheme = {
   'primary-color': '#455363',
@@ -41,6 +42,7 @@ export class UtilsService {
 
   constructor(
     private _api: ApiService,
+    private _storage: StorageService,
     private modalService: BsModalService,
     private translate: TranslateService
   ) {}
@@ -64,7 +66,7 @@ export class UtilsService {
     });
 
     var sprite;
-    if(localStorage.getItem('quality') == "hight"){
+    if(this._storage.getStorage("quality") == "hight"){
       var idUrl = ""; 
       if(pokemon.id < 10){
         idUrl = "00" + pokemon.id;
@@ -100,10 +102,8 @@ export class UtilsService {
   }
 
   openDialog(name: String, local: boolean){
-  
     if(!local){
       this._api.getPokemon(name.toLowerCase()).toPromise().then((pokemon: Pokemon) =>{
-       
         const initialState = {
           pokemon: this.creationPokemon(pokemon),
         };
@@ -112,14 +112,11 @@ export class UtilsService {
         this.bsModalRef.content.closeBtnName = 'Close';
       })
     }else{
-      let tamp = JSON.parse(localStorage.getItem('localPokemons'));
+      let tamp = this._storage.getStorage("localPokemons");
       let tampPokemon;
       if(tamp === null) tamp = [];
       tamp.forEach(element => {
-        if(element.name == name){
-          console.log("LOCAL "  + JSON.stringify(element))
-          tampPokemon = element;
-        }
+        if(element.name == name) tampPokemon = element;
       });
       const initialState = {
         pokemon: tampPokemon
@@ -137,20 +134,21 @@ export class UtilsService {
   
   changeLang(lang: string){
     this.translate.use(lang);
-    localStorage.setItem('lang',lang);
+    this._storage.store('lang',lang)
   }
   
   setQuality(quality: string){
-    localStorage.setItem('quality',quality)
+    this._storage.store('quality',quality)
+
   }
 
   setThemeDark() {
-    if(!(localStorage.getItem('theme') == "dark")) localStorage.setItem('theme','dark')
+    if(!(this._storage.getStorage("theme") === "dark")) this._storage.store("theme","dark")
     this.setTheme(darkTheme);
   }
 
   setThemeLight() {
-    if(!(localStorage.getItem('theme') == "light")) localStorage.setItem('theme','light')
+    if(!(this._storage.getStorage("theme") === "light")) this._storage.store("theme","light")
     this.setTheme(lightTheme);
   }
 
@@ -161,7 +159,7 @@ export class UtilsService {
   }
 
   isDarkTheme() : boolean{
-    return (localStorage.getItem('theme') == "dark") ? true : false;
+    return (this._storage.getStorage("theme") == "dark") ? true : false;
   }
 
 }

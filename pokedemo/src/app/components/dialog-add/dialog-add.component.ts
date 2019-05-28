@@ -11,6 +11,8 @@ import { Stat } from '../../models/stat';
 import { Type } from '../../models/type';
 import { Ability } from '../../models/ability';
 import { Move } from '../../models/move';
+import { StorageService } from '../../services/storage.service';
+import { Router } from '@angular/router';
 
 
 const API_URL = environment.apiUrl;
@@ -23,7 +25,9 @@ const API_URL = environment.apiUrl;
 export class DialogAddComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef,
-              private _api: ApiService) { }
+              private _api: ApiService,
+              private _storage: StorageService,
+              private router: Router) { }
 
   types: Observable<any>;
   abilities: Observable<any>;
@@ -166,12 +170,14 @@ export class DialogAddComponent implements OnInit {
       abilities,
       moves);
 
-    let tamp = JSON.parse(localStorage.getItem('localPokemons'));
+    let tamp = this._storage.getStorage('localPokemons');
     if(tamp === null) tamp = [];
     
     tamp.push(pokemon);
-    localStorage.setItem("localPokemons", JSON.stringify(tamp));
+    this._storage.store("localPokemons", JSON.stringify(tamp))
     this.bsModalRef.hide();
+    this._storage.setStorageChange(true);
+
   }
  
   onReset() {

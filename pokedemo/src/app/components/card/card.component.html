@@ -1,5 +1,8 @@
 <div class="card">
 
+    <div *ngIf="data.local" class="col-12" style="background-color: #d3d3d3">
+        <a style="float: right; margin-top:10px; display: inline-block; white-space: nowrap;clear:right;cursor: pointer;" (click)="deleteLocalPokemon(data.name)"><i style="color:black;" class="material-icons">delete</i></a>
+    </div>
     <app-carousel [data]="data" [interval]="0" class="carousel"></app-carousel>
 
     <div class="container">
