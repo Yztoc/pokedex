@@ -1,0 +1,53 @@
+
+
+@media screen and (min-width: 1024px)
+{
+    .card{
+        background-color: var(--primary-color)!important;
+        color: var(--text-color)!important;
+        width: 40%!important;
+        margin: auto!important;
+        margin-top: 10px!important; 
+        margin-bottom: 10px!important; 
+    }
+}
+
+@media screen and (min-width: 700x) and (max-width: 1023px)
+{
+    .card{
+        background-color: var(--primary-color)!important;
+        color: var(--text-color)!important;
+        width: 70%!important;
+        margin: auto!important;
+        margin-top: 20px!important; 
+    }
+}
+
+@media screen and (max-width: 500px)
+{
+    .card{
+        background-color: var(--primary-color)!important;
+        color: var(--text-color)!important;
+        width: 90%!important;
+        margin: auto!important;
+        margin-top: 20px!important; 
+    }
+}
+
+.list-group-item{
+    background-color: var(--primary-color)!important;
+    color: var(--text-color)!important;        
+}
+
+.custom-select{
+    margin-top: 10px; 
+    background-color: var(--primary-color)!important;
+    border: 1px solid #c4c3c3;
+    color: var(--text-color)!important;
+    font-size: 16px;
+}
+
+.bodyHome{
+    background-color: var(--background-color);
+    color: var(--text-color);
+}

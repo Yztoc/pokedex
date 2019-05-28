@@ -1,9 +1,0 @@
-.card{
-    background-color: var(--primary-color)!important;
-    color: var(--text-color)!important;
-}
-
-.list-group-item{
-    background-color: var(--primary-color)!important;
-    color: var(--text-color)!important;        
-}
