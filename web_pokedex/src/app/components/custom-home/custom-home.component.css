@@ -1,0 +1,25 @@
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color: var(--header-color);
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	cursor: pointer;
+}
+
+.my-float{
+	margin-top:18px;
+}
+
+.card{
+	background-color: var(--primary-color)!important;
+	color: var(--text-color)!important;
+	width: 100%!important;
+	margin: auto!important;
+	margin-top: 10px!important; 
+	margin-bottom: 10px!important; 
+}
