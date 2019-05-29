@@ -1,0 +1,11 @@
+.form-control{
+    margin-top:10px;
+    background-color: var(--primary-color)!important;
+    border: 1px solid #c4c3c3;
+    color: var(--text-color)!important;
+}
+
+.bodyHome{
+    background-color: var(--background-color);
+    color: var(--text-color);
+}

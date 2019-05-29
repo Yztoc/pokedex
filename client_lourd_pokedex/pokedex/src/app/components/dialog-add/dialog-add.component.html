@@ -1,0 +1,153 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ 'create' | translate }}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="addGroup" (validSubmit)="onSubmit()">
+  <div class="modal-body">
+    <!-- FIRST -->
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <h5>{{ 'data_general' | translate }}</h5>
+        
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">{{ 'name' | translate }}</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" formControlName="name" placeholder="{{ 'name' | translate }}">
+        <bfv-messages></bfv-messages>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="id" class="col-sm-2 col-form-label">{{ 'number' | translate }}</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="id" formControlName="id" placeholder="{{ 'number' | translate }}">
+        <bfv-messages></bfv-messages>
+      </div>
+    </div>
+    
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">{{ 'type' | translate }}</label>
+        <div class="col-sm-10">
+            <ng-select [items]="types"
+                     bindLabel="name"
+                     [multiple]="true"
+                     [loading]="loading"
+                     placeholder="{{ 'type' | translate }}"
+                     formControlName="type"
+                     >
+          </ng-select>
+          <bfv-messages></bfv-messages>
+        </div>
+      </div>
+
+    <div class="form-group row">
+      <label for="inputPassword3" class="col-sm-2 col-form-label">{{ 'ability' | translate }}</label>
+      <div class="col-sm-10">
+          <ng-select [items]="abilities"
+                   bindLabel="name"
+                   [multiple]="true"
+                   [loading]="loading"
+                   placeholder="{{ 'ability' | translate }}"
+                   formControlName="ability"
+                   >
+        </ng-select>
+        <bfv-messages></bfv-messages>
+      </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="height">{{ 'height' | translate }}</label>
+          <input type="number" class="form-control" id="height" formControlName="height" placeholder="{{ 'height' | translate }}">
+          <bfv-messages></bfv-messages>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="weight">{{ 'weight' | translate }}</label>
+            <input type="number" class="form-control" id="weight" formControlName="weight" placeholder="{{ 'weight' | translate }}">
+            <bfv-messages></bfv-messages>
+        </div>
+    </div>
+
+
+    <div class="dropdown-divider"></div>
+
+
+      <!-- SECOND -->
+      <div class="form-group row">
+          <div class="col-sm-12">
+            <h5>{{ 'statistical' | translate }}</h5>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="hp">{{ 'hp' | translate }}</label>
+            <input type="number" class="form-control" id="hp" formControlName="hp" placeholder="{{ 'hp' | translate }}">
+            <bfv-messages></bfv-messages>
+          </div>
+          <div class="form-group col-md-6">
+              <label for="speed">{{ 'speed' | translate }}</label>
+              <input type="number" class="form-control" id="speed" formControlName="speed" placeholder="{{ 'speed' | translate }}">
+              <bfv-messages></bfv-messages>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="Attack">{{ 'attack' | translate }}</label>
+              <input type="number" class="form-control" id="Attack" formControlName="attack" placeholder="{{ 'attack' | translate }}">
+              <bfv-messages></bfv-messages>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Defence">{{ 'defence' | translate }}</label>
+            <input type="number" class="form-control" id="Defence" formControlName="defence" placeholder="{{ 'defence' | translate }}">
+            <bfv-messages></bfv-messages>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <label for="speAttack">{{ 'spe_attack' | translate }}</label>
+              <input type="number" class="form-control" id="speAttack" formControlName="speAttack" placeholder="{{ 'spe_attack' | translate }}">
+              <bfv-messages></bfv-messages>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="speDefence">{{ 'spe_defence' | translate }}</label>
+            <input type="number" class="form-control" id="speDefence" formControlName="speDefence" placeholder="{{ 'spe_defence' | translate }}">
+            <bfv-messages></bfv-messages>
+          </div>
+      </div>
+      
+      <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">{{ 'moves' | translate }}</label>
+          <div class="col-sm-10">
+              <ng-select [items]="moves"
+                       bindLabel="name"
+                       [multiple]="true"
+                       placeholder="{{ 'moves' | translate }}"
+                       formControlName="move"
+                       >
+            </ng-select>
+            <bfv-messages></bfv-messages>
+          </div>
+        </div>
+
+      <div class="form-group row">
+        <label for="image" class="col-sm-2 col-form-label">{{ 'image' | translate }}</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="image" formControlName="image" placeholder="{{ 'url' | translate }}">
+          <bfv-messages></bfv-messages>
+        </div>
+      </div>
+
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="!isDarkTheme" type="button" class="btn btn-outline-dark" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>
+    <button *ngIf="isDarkTheme" type="button" class="btn btn-outline-light" (click)="bsModalRef.hide()">{{ 'close' | translate }}</button>   
+    
+    <button *ngIf="!isDarkTheme" type="submit" class="btn btn-outline-primary">{{ 'validate' | translate }}</button>
+  </div>
+</form>    
