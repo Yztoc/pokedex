@@ -41,5 +41,9 @@ Les sources sont disponibles ainsi que les différentes builds dans les dossiers
 
     npm install
     npm start
+    npm build electron:linux
+    npm build electron:windows
 
-> l'environnement pour build les applications devices et lourd sont complexe à mettre en place (environnement de developpement Linux Debian, JDK 1.8, Node 10.2 )
+
+> l'environnement pour build les applications devices et lourd sont complexe à mettre en place (environnement de developpement Linux Debian, JDK 1.8, Node 10.2, Wine 3,0 )
+Les clients lourds ne sont pas build, le poids était trop conséquent pour upload sur GitHub, il y a juste l apk pour les téléphones Android
